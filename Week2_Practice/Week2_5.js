@@ -17,7 +17,7 @@ jsTitle.innerHTML = `Generate a number between 0 and <span>${jsRange.value}</spa
 // 'jsRange' input 요소에 대한 "input" 이벤트 listener를 추가함.
 // 범위를 조절할 때마다 제목의 'span'요소 내용을 업데이트하여 현재 범위를 반영함.
 jsRange.addEventListener("input", () => {
-  jsTitle.querySelector("span").textContent = jsRange.value;
+  jsTitle.querySelector("span").innerHTML = jsRange.value;
 });
 
 // 제출 이벤트 리스너
@@ -26,13 +26,13 @@ jsGuessForm.addEventListener("submit", (e) => {   // form 요소에 대한 "subm
   const userGuess = parseInt(document.getElementById("num").value);
   
   if (isNaN(userGuess) || userGuess < 0 || userGuess > parseInt(jsRange.value)) {
-    jsResult.textContent = `Please enter a valid number between 0 and ${jsRange.value}.`;
+    jsResult.innerHTML = `Please enter a valid number between 0 and ${jsRange.value}.`;
   } else {
     const randomNumber = generateRandomNumber(0, parseInt(jsRange.value));
     if (userGuess === randomNumber) {
-      jsResult.textContent = `You win! Your guess (${userGuess}) is correct.`;
+      jsResult.innerHTML = `You choose : ${userGuess} / The Machine choose : ${randomNumber} <br> -> You Win!`;
     } else {
-      jsResult.textContent = `You lose. The correct number was ${randomNumber}. Your guess was ${userGuess}.`;
+      jsResult.innerHTML = `You choose : ${userGuess} / The Machine choose : ${randomNumber} <br> -> You Lose!`;
     }
   }
 });
