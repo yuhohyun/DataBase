@@ -30,9 +30,9 @@ jsGuessForm.addEventListener("submit", (e) => {   // form 요소에 대한 "subm
   } else {
     const randomNumber = generateRandomNumber(0, parseInt(jsRange.value));
     if (userGuess === randomNumber) {
-      jsResult.innerHTML = `You choose : ${userGuess} / The Machine choose : ${randomNumber} <br> -> You Win!`;
+      jsResult.innerHTML = `You choose : ${userGuess} / The Machine choose : ${randomNumber} <br> <strong>You Win!</strong>`;
     } else {
-      jsResult.innerHTML = `You choose : ${userGuess} / The Machine choose : ${randomNumber} <br> -> You Lose!`;
+      jsResult.innerHTML = `You choose : ${userGuess} / The Machine choose : ${randomNumber} <br> <strong>You Lose!</strong>`;
     }
   }
 });
