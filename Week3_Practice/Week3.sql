@@ -42,7 +42,30 @@ FROM
 JOIN
     client AS c ON e.branch_id = c.branch_id
 JOIN
-    works_with AS w ON e.emp_id = w.emp_id AND c.client_id = w.client_id
+    works_with AS w ON c.client_id = w.client_id AND e.emp_id = w.emp_id
 WHERE
     c.client_name = 'FedEx'
-    AND w.total_sales >= 60000;
+    AND e.salary >= 60000;
+
+SELECT 
+    SUM(salary) AS "total_salary",
+    MAX(salary) AS "max_salary",
+    MIN(salary) AS "min_salary",
+    AVG(salary) AS "avg_salary"
+FROM 
+    employee;
+
+SELECT 
+    COUNT(*) AS "total_employees"
+FROM
+    employee;
+
+SELECT
+    b.branch_name AS "Branch_name",
+    COUNT(e.emp_id) AS "employees_in_branch"
+FROM
+    branch AS b
+LEFT JOIN
+    employee AS e ON b.branch_id = e.branch_id
+GROUP BY
+    b.branch_name;
