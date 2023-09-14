@@ -15,7 +15,7 @@ SELECT
     e.last_name AS "last_name",
     e.salary AS "salary"
 FROM
-    employee As e
+    employee AS e
 WHERE
     e.sex = 'M'
     AND e.salary BETWEEN 60000 AND 80000;
