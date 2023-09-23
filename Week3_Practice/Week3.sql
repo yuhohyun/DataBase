@@ -21,14 +21,12 @@ WHERE
     AND e.salary BETWEEN 60000 AND 80000;
 
 SELECT
-    e.first_name AS "first_name",
-    e.last_name AS "last_name",
-    e.branch_id AS "branch_id",
-    e.salary AS "salary"
+    first_name AS "first_name",
+    last_name AS "last_name",
+    branch_id AS "branch_id",
+    salary AS "salary"
 FROM 
-    employee AS e
-JOIN
-    branch AS b ON e.branch_id = b.branch_id
+    employee 
 ORDER BY
     branch_id DESC,
     salary ASC;
