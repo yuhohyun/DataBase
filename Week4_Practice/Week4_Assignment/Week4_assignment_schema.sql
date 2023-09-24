@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `Inha_DB`.`Department` (
   `Did` INT NOT NULL,
   `Dname` VARCHAR(30) NOT NULL,
   `DEmail` VARCHAR(45) NOT NULL,
-  `DPhoneNumber` CHAR(11) NULL,
+  `DPhoneNumber` CHAR(11) NOT NULL,
   `Building_Bid` INT NOT NULL,
   PRIMARY KEY (`Did`, `Dname`),
   UNIQUE INDEX `Did_UNIQUE` (`Did` ASC) VISIBLE,
