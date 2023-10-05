@@ -61,4 +61,16 @@ export const updateSql = {
         console.log(sql);
         await promisePool.query(sql);
     },
+    updateDepartment: async (data) => {
+        console.log(data);
+        const sql = `
+            UPDATE Department
+            SET Department_Id : ${data.Did}, 
+                Department_Name = "${data.Dname}",
+                Department_Email : "${data.DEmail}",
+                Department_PhoneNumber : "${data.DPhoneNumber}"
+            WHERE Department_Id = ${data.Did}`;
+        console.log(sql);
+        await promisePool.query(sql);       
+    },
 };

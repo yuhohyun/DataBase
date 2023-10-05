@@ -1,0 +1,21 @@
+<h1>{{main_title}}</h1>
+<table>
+    <tr>
+        <td>Department_ID</td>
+        <td>Department_Name</td>
+        <td>Department_Email</td>
+        <td>Department_PhoneNumber</td>
+    </tr>
+    {{#each department_res}}
+    <form method="post">
+        <tr>
+            <td>{{Did}}</td>
+            <td style="display: none"><input type="text" name="Department ID" value={{Did}}></td> 
+            <td><input type="text" name="Department Name" value="{{Dname}}"></td> 
+            <td><input type="text" name="Department Email" value={{DEmail}}></td> 
+            <td><input type="text" name="Department PhoneNumber" value={{DPhoneNumber}}></td> 
+            <td><input type="submit" value="Modify" formaction="/update/department"></td>
+        </tr>
+    </form>
+    {{/each}}
+</table>
