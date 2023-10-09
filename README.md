@@ -7,3 +7,6 @@
 - Week2_Practice
 - Week2_Practice2
 - Week3_Practice
+- Week4_Assignment
+- Week5_Practice
+- Week6_Practice
