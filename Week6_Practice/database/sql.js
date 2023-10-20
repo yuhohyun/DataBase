@@ -34,6 +34,11 @@ export const selectSql = {
         const [result] = await promisePool.query(sql);
         return result;
     },
+    getClass: async () => {
+        const sql = `select * from Class`;
+        const [result] = await promisePool.query(sql);
+        return result;
+    }
 }
 
 // insert query
