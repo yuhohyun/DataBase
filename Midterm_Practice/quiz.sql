@@ -59,3 +59,55 @@ UNION
     FROM t1 NATURAL
         RIGHT JOIN t2
 );
+
+-- QUIZ 3
+-- (1)
+SELECT *
+FROM t1
+WHERE id IN (
+        SELECT id
+        FROM t2
+    );
+
+-- (2)
+SELECT *
+FROM t1
+WHERE id NOT IN (
+        SELECT id
+        FROM t2
+    );
+
+-- (3)
+SELECT *
+FROM t1
+WHERE id NOT IN (
+        SELECT id
+        FROM t2
+        WHERE id IS NOT NULL
+    );
+
+-- (4)
+SELECT *
+FROM t1
+WHERE EXISTS (
+        SELECT *
+        FROM t2
+    );
+
+-- (5)
+SELECT *
+FROM t1
+WHERE EXISTS (
+        SELECT *
+        FROM t2
+        WHERE t1.id = t2.id
+    );
+
+-- (6)
+SELECT *
+FROM t1
+WHERE NOT EXISTS (
+        SELECT *
+        FROM t2
+        WHERE t1.id = t2.id
+    );

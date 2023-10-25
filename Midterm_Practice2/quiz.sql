@@ -106,6 +106,7 @@ WHERE NOT EXISTS(
 )
 UNION
 (
+    
     SELECT DISTINCT Pnumber
     FROM PROJECT,
         WORKS_ON,
