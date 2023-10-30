@@ -10,3 +10,6 @@
 - Week4_Assignment
 - Week5_Practice
 - Week6_Practice
+- Midterm_Practice
+- Midterm_Practice2
+- Week10_Practice
