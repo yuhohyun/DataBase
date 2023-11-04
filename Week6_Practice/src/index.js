@@ -6,6 +6,7 @@ import expressSession from "express-session";
 import loginRouter from '../routes/login';
 import updateRouter from '../routes/update';
 import selectRouter from '../routes/select';
+import deleteRouter from '../routes/delete';
 
 const PORT = 3000;
 
@@ -30,6 +31,7 @@ app.use(logger('dev'));
 app.use('/', loginRouter);   // 수정 필요
 app.use('/update', updateRouter);
 app.use('/select', selectRouter);
+app.use('/delete/class', deleteRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`)

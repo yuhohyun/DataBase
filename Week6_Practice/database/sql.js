@@ -38,8 +38,13 @@ export const selectSql = {
         const sql = `select * from Class`;
         const [result] = await promisePool.query(sql);
         return result;
-    }
-}
+    },
+    getClass_has_student: async () => {
+        const sql = `select * from Class_has_student where student_Sid=12191789`;
+        const [result] = await promisePool.query(sql);
+        return result;
+    },
+};
 
 // insert query
 export const insertSql = {
@@ -77,5 +82,15 @@ export const updateSql = {
             WHERE Department_Id = ${data.Did}`;
         console.log(sql);
         await promisePool.query(sql);       
+    },
+};
+
+// delete query
+export const deleteSql = {
+    deleteClass_has_student: async (data) => {
+        console.log('delete Class Classid =', data);
+        const sql = `DELETE FROM class_has_student WHERE Class_ClassId = "${data.Class_ClassId}"`
+        console.log(sql);
+        await promisePool.query(sql);
     },
 };
