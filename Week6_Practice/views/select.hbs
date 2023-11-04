@@ -1,63 +1,7 @@
 <h1>{{main_title}}</h1>
 
-<!--Building-->
-<h2>{{title1}}</h2>
-
-<table>
-    <tr>
-        <td>Id</td>
-        <td>Name</td>
-    </tr>
-    {{#each Building}}
-    <tr>
-        <td>{{Bid}}</td>
-        <td>{{BName}}</td>
-    </tr>
-    {{/each}}
-</table>
-
-<!--Department-->
-<h2>{{title2}}</h2>
-
-<table>
-    <tr>
-        <td>Id</td>
-        <td>Name</td>
-        <td>Email</td>
-        <td>Phone number</td>
-    </tr>
-    {{#each Department}}
-    <tr>
-        <td>{{Did}}</td>
-        <td>{{Dname}}</td>
-        <td>{{DEmail}}</td>
-        <td>{{DPhoneNumber}}</td>
-    </tr>
-    {{/each}}
-</table>
-
-<!--Room-->
-<h2>{{title3}}</h2>
-
-<table>
-    <tr>
-        <td>Id</td>
-        <td>Name</td>
-        <td>Capacity</td>
-        <td>Building Id</td>
-    </tr>
-    {{#each Room}}
-    <tr>
-        <td>{{Rid}}</td>
-        <td>{{Rname}}</td>
-        <td>{{Capacity}}</td>
-        <td>{{Building_Bid}}</td>
-        </tr>
-    {{/each}}
-</table>
-
 <!--Student-->
-<h2>{{title4}}</h2>
+<h2>{{title1}}</h2>
 
 <table>
     <tr>
@@ -74,26 +18,6 @@
         <td>{{SEmail}}</td>
         <td>{{SPhoneNumber}}</td>
         <td>{{Major}}</td>
-    </tr>
-    {{/each}}
-</table>
-
-<!--Class-->
-<h2>{{title5}}</h2>
-
-<table>
-    <tr>
-        <td>ClassId</td>
-        <td>ClassName</td>
-        <td>Professor</td>
-        <td>NumberOfParticipants</td>
-    </tr>
-    {{#each Class}}
-    <tr>
-        <td>{{ClassId}}</td>
-        <td>{{ClassName}}</td>
-        <td>{{Professor}}</td>
-        <td>{{NumberOfParticipants}}</td>
     </tr>
     {{/each}}
 </table>
