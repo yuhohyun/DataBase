@@ -28,7 +28,7 @@ app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 
-app.use('/', loginRouter);   // 수정 필요
+app.use('/', loginRouter);
 app.use('/update', updateRouter);
 app.use('/select', selectRouter);
 app.use('/delete/class', deleteRouter);
