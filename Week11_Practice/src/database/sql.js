@@ -5,7 +5,7 @@ const pool = mysql.createPool(
     host: 'localhost',
     user: 'root',
     database: 'WEEK11_INHA_DB',
-    password: '',
+    password: '!smart5651',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -19,6 +19,10 @@ const promisePool = pool.promise();
 export const selectSql = {
   getUsers: async () => {
     const [rows] = await promisePool.query(`select * from student`);
+    return rows;
+  },
+  getClasses: async () => {
+    const [rows] = await promisePool.query(`select C.Cid as "ID", C.Name as "Course", C.Professor as "Professor", D.Dname as "Opening_departments", C.Number_Of_Participant as "Number_of_participant" from Class as C, Department as D`);
     return rows;
   },
   //TODO

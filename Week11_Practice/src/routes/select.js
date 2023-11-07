@@ -1,14 +1,22 @@
 import express from "express";
+import { selectSql } from '../database/sql';
 // TODO
 // sql import
 
 const router = express.Router();
 
 router.get('/', async function (req, res) {
-    // TODO
-    
+
     if (req.cookies.user) {
-        res.render('select', { user: req.cookies.user });
+        const Classes = await selectSql.getClasses();
+        const allClass = await selectSql.getClasses();
+
+        res.render('select', { 
+            user: req.cookies.user,
+            title: "Course completion list",
+            title2: "Course List (Registration)",
+            Classes, 
+            allClass,});
     } else {
         res.render('/')
     }
