@@ -8,14 +8,14 @@ const router = express.Router();
 router.get('/', async function (req, res) {
 
     if (req.cookies.user) {
-        const Classes = await selectSql.getClasses();
+        // const Classes = await selectSql.getCompletion();
         const allClass = await selectSql.getClasses();
 
         res.render('select', { 
             user: req.cookies.user,
             title: "Course completion list",
             title2: "Course List (Registration)",
-            Classes, 
+            allClass, 
             allClass,});
     } else {
         res.render('/')

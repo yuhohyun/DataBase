@@ -22,9 +22,20 @@ export const selectSql = {
     return rows;
   },
   getClasses: async () => {
-    const [rows] = await promisePool.query(`select C.Cid as "ID", C.Name as "Course", C.Professor as "Professor", D.Dname as "Opening_departments", C.Number_Of_Participant as "Number_of_participant" from Class as C, Department as D`);
+    const [rows] = await promisePool.query(
+      `select C.Cid as "ID", 
+        C.Name as "Course", 
+        C.Professor as "Professor", 
+        D.Dname as "Opening_departments", 
+        C.Number_Of_Participant as "Number_of_participant"
+      from Class as C, Department as D`);
     return rows;
   },
+  /*getCompletion: async () => {
+    const [rows] = await promisePool.query
+    (`select  `);
+    return rows;
+  }*/
   //TODO
 }
 
