@@ -23,7 +23,7 @@ export const selectSql = {
   },
   getClasses: async () => {
     const [rows] = await promisePool.query(
-      `select C.Cid as "ID", 
+      `select C.ID as "ID", 
         C.Name as "Course", 
         C.Professor as "Professor", 
         D.Dname as "Opening_departments", 
@@ -31,11 +31,17 @@ export const selectSql = {
       from Class as C, Department as D`);
     return rows;
   },
-  /*getCompletion: async () => {
+  getCompletion: async () => {
     const [rows] = await promisePool.query
-    (`select  `);
+    (`select C.ID as "ID", 
+        C.Name as "Course", 
+        C.Professor as "Professor", 
+        D.Dname as "Opening_departments",
+        C.Number_Of_Participant as "Number_of_participant"
+      from Class as C, Department as D, class_student as CS, Student as S
+      where CS.Student_Id = S.ID and CS.Class_Id = C.ID`);
     return rows;
-  }*/
+  }
   //TODO
 }
 
