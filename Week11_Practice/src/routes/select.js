@@ -7,9 +7,12 @@ import { createServer } from "livereload";
 const router = express.Router();
 
 router.get('/', async function (req, res) {
+    const data = {
+        sId: req.cookies.user,
+    }
 
     if (req.cookies.user) {
-        const classes = await selectSql.getCompletion();
+        const classes = await selectSql.getCompletion(data);
         const allClass = await selectSql.getClasses();
 
         res.render('select', { 

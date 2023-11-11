@@ -31,18 +31,24 @@ export const selectSql = {
       from Class as C, Department as D`);
     return rows;
   },
-  getCompletion: async () => {
-    const [rows] = await promisePool.query
-    (`select C.ID as "ID", 
-        C.Name as "Course", 
-        C.Professor as "Professor", 
-        D.Dname as "Opening_departments",
-        C.Number_Of_Participant as "Number_of_participant"
-      from Class as C, Department as D, class_student as CS, Student as S
-      where CS.Student_Id = S.ID and CS.Class_Id = C.ID`);
+  getCompletion: async (data) => {
+    const uid = await promisePool.query(`select ID from Student where StudentId=${data.sId}`);
+    console.log(uid);
+
+    const [rows] = await promisePool.query(
+      `SELECT C.Cid AS "ID", 
+        C.Name AS "Course", 
+        C.Professor AS "Professor", 
+        D.Dname AS "Opening_departments",
+        C.Number_Of_Participant AS "Number_of_participant"
+      FROM Class AS C
+        JOIN class_student AS CS ON C.ID = CS.Class_Id
+        JOIN Student AS S ON CS.Student_Id = S.ID
+        JOIN Department AS D ON C.Did = D.ID
+      WHERE S.ID = ${uid[0][0].ID};`);
     return rows;
   }
-  //TODO
+
 }
 
 export const createSql = {
