@@ -28,15 +28,19 @@ router.get('/', async function (req, res) {
 });
 
 router.post('/', async(req, res) => {
-    // TODO
     const data = {
         cId: req.body.applyBtn,
         sId: req.cookies.user,
     };
 
-    await createSql.addClass(data);
-
-    res.redirect('/sugang');
+    try {
+        await createSql.addClass(data);
+        res.redirect('/sugang');
+    } catch (error) {
+        // Handle any errors that occur during the insertion (e.g., duplicate entry)
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 module.exports = router;

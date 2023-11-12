@@ -63,12 +63,23 @@ export const selectSql = {
 
 export const createSql = {
   addClass: async (data) => {
-    const uid = await promisePool.query(`select Id from Student where StudentId=${data.sId}`);
-    console.log(uid);
-    const results = await promisePool.query (
-      `insert into class_student values (${uid[0][0].Id}, ${data.cId});`
-    )
-    return results[0];
-  }
-}
+    const uid = await promisePool.query(`SELECT Id FROM Student WHERE StudentId=${data.sId}`);
 
+    const checkDuplicate = await promisePool.query(
+      `SELECT * FROM class_student WHERE student_id = ${uid[0][0].Id} AND class_id = ${data.cId}`
+    );
+
+    console.log('Check Duplicate:', checkDuplicate);
+
+    if (checkDuplicate[0].length > 0) {
+      // 데이터가 중복된다면, 콘솔 로그 출력
+      console.log('Duplicate entry. Handle accordingly.');
+    } else {
+      // 데이터가 중복되지 않는다면, 데이터를 삽입함.
+      const results = await promisePool.query(
+        `INSERT INTO class_student VALUES (${uid[0][0].Id}, ${data.cId});`
+      );
+      return results[0];
+    }
+  }
+};
