@@ -23,13 +23,23 @@ export const selectSql = {
   },
   getClasses: async () => {
     const [rows] = await promisePool.query(
-      `select C.ID as "ID", 
-        C.Name as "Course", 
-        C.Professor as "Professor", 
-        D.Dname as "Opening_departments", 
-        C.Number_Of_Participant as "Number_of_participant"
-      from Class as C, Department as D`);
-    return rows;
+      `SELECT
+        C.ID AS "ID",
+        C.Name AS "Course",
+        C.Professor AS "Professor",
+        D.Dname AS "Opening_departments",
+        C.Number_Of_Participant AS "Number_of_participant",
+        (C.Number_Of_Participant - COUNT(CS.class_ID)) AS "Remaining_participants"
+      FROM
+        Class AS C
+      JOIN
+        Department AS D ON C.Did = D.ID
+      LEFT JOIN
+        class_student AS CS ON C.ID = CS.class_ID
+      GROUP BY
+        C.ID, C.Name, C.Professor, D.Dname, C.Number_Of_Participant;`);
+      
+      return rows;
   },
   getCompletion: async (data) => {
     const uid = await promisePool.query(`select ID from Student where StudentId=${data.sId}`);
