@@ -80,7 +80,7 @@ export const createSql = {
         C.Number_Of_Participant;` 
     );
 
-    console.log('check Remaining Participants: ', checkRemainingParticipants);
+    console.log('check Remaining Participants:', checkRemainingParticipants);
 
     const checkDuplicate = await promisePool.query(
       `SELECT * FROM class_student WHERE student_id = ${uid[0][0].Id} AND class_id = ${data.cId}`
@@ -90,19 +90,24 @@ export const createSql = {
 
     if (checkDuplicate[0].length > 0) {
       // 데이터가 중복된다면, 콘솔 로그 출력
-      console.log('Duplicate entry. Handle accordingly.');
+      console.log('Duplicate entry. You Cannot Insert!');
     } 
     else {
       // 데이터가 중복되지 않는다면, 남은 학생수를 확인함.
-      if (checkRemainingParticipants > 0) {
+      const remainingParticipants = checkRemainingParticipants[0][0]["Remaining_participants"];
+
+      console.log('Remaining Participants: ', remainingParticipants);
+
+      if (remainingParticipants > 0) {
         const results = await promisePool.query(
           `INSERT INTO class_student VALUES (${uid[0][0].Id}, ${data.cId});`
         );
-        
+        console.log('Data insertion complete!');
+
         return results[0];
       }
       else {
-        console.log('Number Of Remaining Participants = 0. You Cannot Insert.')
+        console.log('Number Of Remaining Participants = 0. You Cannot Insert!')
       }
     }
   }
