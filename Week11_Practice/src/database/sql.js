@@ -65,6 +65,23 @@ export const createSql = {
   addClass: async (data) => {
     const uid = await promisePool.query(`SELECT Id FROM Student WHERE StudentId=${data.sId}`);
 
+    const checkRemainingParticipants = await promisePool.query(
+     `SELECT
+        (C.Number_Of_Participant - COUNT(CS.class_ID)) AS "Remaining_participants"
+      FROM
+        Class AS C
+      JOIN
+        Department AS D ON C.Did = D.ID
+      LEFT JOIN
+        class_student AS CS ON C.ID = CS.class_ID
+      WHERE
+        C.ID = ${data.cId}
+      GROUP BY
+        C.Number_Of_Participant;` 
+    );
+
+    console.log('check Remaining Participants: ', checkRemainingParticipants);
+
     const checkDuplicate = await promisePool.query(
       `SELECT * FROM class_student WHERE student_id = ${uid[0][0].Id} AND class_id = ${data.cId}`
     );
@@ -74,12 +91,19 @@ export const createSql = {
     if (checkDuplicate[0].length > 0) {
       // 데이터가 중복된다면, 콘솔 로그 출력
       console.log('Duplicate entry. Handle accordingly.');
-    } else {
-      // 데이터가 중복되지 않는다면, 데이터를 삽입함.
-      const results = await promisePool.query(
-        `INSERT INTO class_student VALUES (${uid[0][0].Id}, ${data.cId});`
-      );
-      return results[0];
+    } 
+    else {
+      // 데이터가 중복되지 않는다면, 남은 학생수를 확인함.
+      if (checkRemainingParticipants > 0) {
+        const results = await promisePool.query(
+          `INSERT INTO class_student VALUES (${uid[0][0].Id}, ${data.cId});`
+        );
+        
+        return results[0];
+      }
+      else {
+        console.log('Number Of Remaining Participants = 0. You Cannot Insert.')
+      }
     }
   }
 };
