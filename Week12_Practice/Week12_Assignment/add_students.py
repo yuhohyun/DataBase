@@ -24,8 +24,8 @@ VALUES
 fake = Faker()
 # ...
 
-# 10만명의 가짜 데이터 생성 및 쿼리에 추가
-for Sid in range(1, 100001):
+# 50만명의 가짜 데이터 생성 및 쿼리에 추가
+for Sid in range(1, 500001):
     Sname = fake.unique.user_name()
     SEmail = f'{fake.word()}{Sid}@example.com'
 
@@ -65,4 +65,4 @@ connection.commit()
 cursor.close()
 connection.close()
 
-print("10만명 이상의 가짜 학생 정보가 MySQL 데이터베이스에 추가되었습니다.")
+print("50만명의 가짜 학생 정보가 MySQL 데이터베이스에 추가되었습니다.")
