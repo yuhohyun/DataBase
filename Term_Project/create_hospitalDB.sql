@@ -1,0 +1,110 @@
+CREATE SCHEMA IF NOT EXISTS hospitalDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE hospitalDB;
+
+-- MEDICAL_SPECIALTY 테이블
+CREATE TABLE MEDICAL_SPECIALTY (
+    DepartmentID INT NOT NULL AUTO_INCREMENT,
+    DepartmentName VARCHAR(255) NOT NULL,
+    PhoneNumber VARCHAR(20) NOT NULL,
+    PRIMARY KEY(DepartmentID)
+);
+
+-- DOCTOR 테이블
+CREATE TABLE DOCTOR (
+    DoctorID INT NOT NULL,
+    DepartmentID INT NOT NULL,
+    Name VARCHAR(255) NOT NULL,
+    Address VARCHAR(255),
+    PhoneNumber VARCHAR(20) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (DoctorID),
+    FOREIGN KEY (DepartmentID) REFERENCES MEDICAL_SPECIALTY(DepartmentID)
+);
+
+-- NURSE 테이블
+CREATE TABLE NURSE (
+    NurseID INT NOT NULL,
+    DepartmentID INT NOT NULL,
+    Name VARCHAR(255) NOT NULL,
+    Address VARCHAR(255),
+    PhoneNumber VARCHAR(20) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (NurseID),
+    FOREIGN KEY (DepartmentID) REFERENCES MEDICAL_SPECIALTY(DepartmentID)
+);
+
+-- PATIENT 테이블
+CREATE TABLE PATIENT (
+    PatientID INT NOT NULL AUTO_INCREMENT,
+    DoctorID INT,
+    NurseID INT,
+    Name VARCHAR(255) NOT NULL,
+    SSN VARCHAR(20) NOT NULL,
+    Gender ENUM('M', 'F') NOT NULL,
+    Address VARCHAR(255) NOT NULL,
+    BloodType VARCHAR(5) NOT NULL,
+    Height DECIMAL(5, 2) NOT NULL,
+    Weight DECIMAL(5, 2) NOT NULL,
+    PhoneNumber VARCHAR(20) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (PatientID),
+    FOREIGN KEY (DoctorID) REFERENCES DOCTOR(DoctorID),
+    FOREIGN KEY (NurseID) REFERENCES NURSE(NurseID)
+);
+
+-- ADMINISTRATOR 테이블
+CREATE TABLE ADMINISTRATOR (
+    AdministratorID INT NOT NULL,
+    DepartmentID INT NOT NULL,
+    Name VARCHAR(255) NOT NULL,
+    PhoneNumber VARCHAR(20) NOT NULL,
+    Address VARCHAR(255),
+    Password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (AdministratorID),
+    FOREIGN KEY (DepartmentID) REFERENCES MEDICAL_SPECIALTY(DepartmentID)
+);
+
+-- INPATIENT 테이블
+CREATE TABLE INPATIENT (
+    InpatientID INT NOT NULL AUTO_INCREMENT,
+    PatientID INT NOT NULL,
+    RoomInformation VARCHAR(255) NOT NULL,
+    AdmissionDateTime DATETIME NOT NULL,
+    DischargeDateTime DATETIME NOT NULL,
+    PRIMARY KEY (InpatientID),
+    FOREIGN KEY (PatientID) REFERENCES PATIENT(PatientID)
+);
+
+-- RESERVATION 테이블
+CREATE TABLE RESERVATION (
+    ReservationNumber INT NOT NULL AUTO_INCREMENT,
+    ReservationDateTime DATETIME NOT NULL,
+    PatientID INT NOT NULL,
+    PRIMARY KEY (ReservationNumber),
+    FOREIGN KEY (PatientID) REFERENCES PATIENT(PatientID)
+);
+
+-- EXAMINATION 테이블
+CREATE TABLE EXAMINATION (
+    ExaminationID INT NOT NULL AUTO_INCREMENT,
+    ExaminationDateTime DATETIME NOT NULL,
+    ExaminationDetails VARCHAR(511),
+    DoctorID INT NOT NULL,
+    PatientID INT NOT NULL,
+    PRIMARY KEY (ExaminationID),
+    FOREIGN KEY (DoctorID) REFERENCES DOCTOR(DoctorID),
+    FOREIGN KEY (PatientID) REFERENCES PATIENT(PatientID)
+);
+
+-- TREATMENT 테이블
+CREATE TABLE TREATMENT (
+    TreatmentID INT NOT NULL AUTO_INCREMENT,
+    TreatmentDateTime DATETIME NOT NULL,
+    TreatmentDetails VARCHAR(511) NOT NULL,
+    NurseID INT NOT NULL,
+    PatientID INT NOT NULL,
+    PRIMARY KEY (TreatmentID),
+    FOREIGN KEY (NurseID) REFERENCES NURSE(NurseID),
+    FOREIGN KEY (PatientID) REFERENCES PATIENT(PatientID)
+);
